@@ -1,8 +1,14 @@
 
 - npm init
-- git repo online
 - get db calls running
   - columns for main info
+    - hostname, path, map, num_visits, num_unique_visits, last_visited,
+  - REST api:
+    - axios on the js side to put together info we want
+      - at first is just a plain call where the server knows what to do
+      - handler that takes in this data
+    - middleware on the server side to grab all site visits (for a given hostname?)
+
 - git pull for weaponized police
 - table UI
 - better place for this directory to live?
