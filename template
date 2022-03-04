@@ -45,16 +45,16 @@ sudo npm install --save-dev babel-plugin-transform-object-rest-spread
 # sudo npm install engine.io
 
 #eureca
-npm install express --save
+sudo npm install express --save
 
 # react native server
 # npm install -g expo-cli
 
 # postgres
-npm install pg
+sudo npm install pg
 
 # clientside REST
-npm install axios
+sudo npm install axios
 
 # electron
 # npm i -D electron@latest

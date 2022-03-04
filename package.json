@@ -4,11 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "babel": "babel",
+    "flow": "flow",
+    "browserify": "browserify",
+    "start": "node server/server.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
     "flow-bin": "^0.172.0"
+  },
+  "dependencies": {
+    "axios": "^0.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-flow": "^6.23.0",
+    "bens_ui_components": "^1.2.5",
+    "bens_utils": "^1.0.1",
+    "express": "^4.17.3",
+    "pg": "^8.7.3"
   }
 }

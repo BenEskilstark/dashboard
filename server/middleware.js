@@ -96,6 +96,23 @@ const writeScore = (req, res, next) => {
   });
 };
 
+const getDashboardData = (req, res, next) => {
+  // const {hostname} = req.query;
+
+  selectQuery(
+    'site_visits',
+    ['hostname', 'path', 'map', 'num_visits', 'num_unique_visits', 'last_visited'],
+    {},
+  ).then((result) => {
+    res.status(200).send(result.rows);
+    return;
+  }).catch((err) => {
+    console.log('failed to read score');
+    console.log(err);
+    res.status(500).send({error: err});
+  });
+};
+
 const getHighScores = (req, res, next) => {
   const {mapNames, scoreTypes} = req.query;
   const orderByTypes = JSON.parse(scoreTypes);
@@ -162,4 +179,5 @@ module.exports = {
   getHighScores,
   writeScore,
   recordSession,
+  getDashboardData,
 };
