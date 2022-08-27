@@ -1,4 +1,3 @@
 - client side filtering by hostname or map
-- set up heroku app with db access so that local server actually accesses it
 - table UI
 - better place for this directory to live?
