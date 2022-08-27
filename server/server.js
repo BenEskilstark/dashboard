@@ -1,6 +1,7 @@
 
 const express = require('express');
 const urlParser = require('url');
+const cors = require('cors');
 const {
   getDashboardData,
 } = require('./middleware');
@@ -8,6 +9,7 @@ const {
 const port = process.env.PORT || 8000;
 
 const app = express();
+app.use(cors())
 app.use(express.json());
 app.use(express.static('./'));
 
