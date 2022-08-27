@@ -11,9 +11,9 @@ const axiosInstance = axios.create({
 // for localhost:
 // const axiosInstance = axios;
 
-axiosInstance.get('/dashboard', { params: { hostname: '*' } })
-// .get('/dashboard', {hostname: 'www.antocracy.io'})
-.then(res => {
+axiosInstance
+// .get('/dashboard', {params: {hostname: '*'}})
+.get('/dashboard', { hostname: 'www.antocracy.io' }).then(res => {
   console.log(res.data);
 });
 ;

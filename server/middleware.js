@@ -98,12 +98,16 @@ const writeScore = (req, res, next) => {
 
 const getDashboardData = (req, res, next) => {
   const {hostname} = req.query;
-  // console.log(hostname, req.query);
+  console.log(hostname, req.query);
+  const query = {};
+  if (hostname != null) {
+    query.hostname = hostname;
+  }
 
   selectQuery(
     'site_visits',
     ['hostname', 'path', 'map', 'num_visits', 'num_unique_visits', 'last_visited'],
-    {hostname},
+    query,
   ).then((result) => {
     res.status(200).send(result.rows);
     return;
