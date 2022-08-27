@@ -8,7 +8,12 @@ const axiosInstance = axios.create({
   baseURL: 'https://ant-analytics.herokuapp.com'
 });
 
-axiosInstance.get('/dashboard', { hostname: 'antocracy.io' }).then(res => {
+// for localhost:
+// const axiosInstance = axios;
+
+axiosInstance.get('/dashboard', { params: { hostname: '*' } })
+// .get('/dashboard', {hostname: 'www.antocracy.io'})
+.then(res => {
   console.log(res.data);
 });
 ;
