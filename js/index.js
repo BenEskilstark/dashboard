@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance
-  .get('/dashboard', {hostname: '*'})
+  .get('/dashboard', {hostname: 'antocracy.io'})
   .then(res => {
     console.log(res.data);
   });

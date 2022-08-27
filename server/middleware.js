@@ -97,12 +97,12 @@ const writeScore = (req, res, next) => {
 };
 
 const getDashboardData = (req, res, next) => {
-  // const {hostname} = req.query;
+  const {hostname} = req.query;
 
   selectQuery(
     'site_visits',
     ['hostname', 'path', 'map', 'num_visits', 'num_unique_visits', 'last_visited'],
-    {},
+    {hostname},
   ).then((result) => {
     res.status(200).send(result.rows);
     return;
