@@ -1,10 +1,10 @@
 const axios = require('axios');
 const React = require('react');
 
-console.log("hello");
+console.log("connecting");
 
 const axiosInstance = axios.create({
-  baseURL: 'https://sidewalk-empire.herokuapp.com',
+  baseURL: 'https://ant-analytics.herokuapp.com',
 });
 
 axiosInstance
