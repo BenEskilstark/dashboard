@@ -7,6 +7,11 @@ const TABLE_TO_COLS = {
     ['id', 'username', 'map', 'game_time', 'queens', 'ants', 'species'],
   'visits':
     ['site', 'num_visits', 'last_visited'],
+  'ant_sessions':
+    [
+      'hostname', 'username', 'map', 'is_unique', 'ending', 'ants',
+      'play_minutes', 'device', 'species', 'queens',
+    ],
 };
 
 const getDashboardData = (req, res, next) => {

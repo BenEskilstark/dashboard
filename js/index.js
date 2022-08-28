@@ -14,7 +14,12 @@ const axiosInstance = axios.create({
 // for localhost:
 // const axiosInstance = axios;
 
-const tableNames = ['site_visits', 'ant_scores', 'visits'];
+const tableNames = ['site_visits', 'ant_scores', 'visits', 'ant_sessions'];
+const filterableCols = [
+  'hostname', 'path', 'map',
+  'username', 'species',
+  'ending', 'is_unique', 'device',
+];
 
 function Main(props) {
   const [table, setTable] = useState('site_visits');
@@ -30,6 +35,21 @@ function Main(props) {
       });
   }, [table]);
 
+  const columns = useMemo(() => {
+    const cols = {};
+    for (const row of rows) {
+      for (const col in row) {
+        if (!cols[col]) {
+          cols[col] = {};
+          if (filterableCols.includes(col)) {
+            cols[col].filterable = true;
+          }
+        }
+      }
+    }
+    return cols;
+  }, [rows]);
+
   return (
     <div>
       Table: <Dropdown
@@ -38,14 +58,7 @@ function Main(props) {
         onChange={setTable}
       />
       <Table
-        columns={{
-          hostname: {displayName: 'Hostname', filterable: true},
-          path: {displayName: 'Path', filterable: true},
-          map: {displayName: 'Map', filterable: true},
-          num_visits: {displayName: 'Visits'},
-          num_unique_visits: {displayName: 'Unique Visits'},
-          last_visited: {displayName: 'Last Visited'},
-        }}
+        columns={columns}
         rows={rows}
       />
     </div>
