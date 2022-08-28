@@ -1,3 +1,8 @@
+
 - client side filtering by hostname or map
-- table UI
+- CORS per endpoint
 - better place for this directory to live?
+- sort through all tables in the db
+  - would need to dynamically filter by e.g. hostname since we don't know that
+    column name ahead of time?
+- scrollable table
