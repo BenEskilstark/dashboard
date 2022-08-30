@@ -1,5 +1,6 @@
 const axios = require('axios');
 const {
+  Button,
   Dropdown,
   Table,
 } = require('bens_ui_components');
@@ -24,6 +25,7 @@ const filterableCols = [
 function Main(props) {
   const [table, setTable] = useState('site_visits');
   const [rows, setRows] = useState([]);
+  const [refresh, setRefresh] = useState(0);
 
   // getting data
   useEffect(() => {
@@ -33,7 +35,7 @@ function Main(props) {
         // console.log(res.data);
         setRows(res.data);
       });
-  }, [table]);
+  }, [table, refresh]);
 
   const columns = useMemo(() => {
     const cols = {};
@@ -56,6 +58,12 @@ function Main(props) {
         options={tableNames}
         selected={table}
         onChange={setTable}
+      />
+      <Button
+        label="Refresh"
+        onClick={() => {
+          setRefresh((refresh + 1) % 2);
+        }}
       />
       <Table
         columns={columns}

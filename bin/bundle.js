@@ -6,6 +6,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 var axios = require('axios');
 
 var _require = require('bens_ui_components'),
+    Button = _require.Button,
     Dropdown = _require.Dropdown,
     Table = _require.Table;
 
@@ -37,15 +38,20 @@ function Main(props) {
       rows = _useState4[0],
       setRows = _useState4[1];
 
+  var _useState5 = useState(0),
+      _useState6 = _slicedToArray(_useState5, 2),
+      refresh = _useState6[0],
+      setRefresh = _useState6[1];
+
   // getting data
 
 
   useEffect(function () {
     axiosInstance.get('/dashboard', { params: { table: table } }).then(function (res) {
-      // console.log(res.data);
+      console.log(res.data);
       setRows(res.data);
     });
-  }, [table]);
+  }, [table, refresh]);
 
   var columns = useMemo(function () {
     var cols = {};
@@ -92,6 +98,12 @@ function Main(props) {
       options: tableNames,
       selected: table,
       onChange: setTable
+    }),
+    React.createElement(Button, {
+      label: 'Refresh',
+      onClick: function onClick() {
+        setRefresh((refresh + 1) % 2);
+      }
     }),
     React.createElement(Table, {
       columns: columns,
