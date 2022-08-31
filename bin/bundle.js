@@ -27,6 +27,13 @@ var axiosInstance = axios.create({
 var tableNames = ['site_visits', 'ant_scores', 'visits', 'ant_sessions'];
 var filterableCols = ['hostname', 'path', 'map', 'username', 'species', 'ending', 'is_unique', 'device'];
 
+var maxWidthCols = {
+  last_visited: 13,
+  path: 32,
+  username: 16,
+  hostname: 25
+};
+
 function Main(props) {
   var _useState = useState('site_visits'),
       _useState2 = _slicedToArray(_useState, 2),
@@ -74,6 +81,9 @@ function Main(props) {
             cols[col] = {};
             if (filterableCols.includes(col)) {
               cols[col].filterable = true;
+            }
+            if (maxWidthCols[col]) {
+              cols[col].maxWidth = maxWidthCols[col];
             }
           }
         }

@@ -22,6 +22,13 @@ const filterableCols = [
   'ending', 'is_unique', 'device',
 ];
 
+const maxWidthCols = {
+  last_visited: 13,
+  path: 32,
+  username: 16,
+  hostname: 25,
+};
+
 function Main(props) {
   const [table, setTable] = useState('site_visits');
   const [rows, setRows] = useState([]);
@@ -47,6 +54,9 @@ function Main(props) {
           cols[col] = {};
           if (filterableCols.includes(col)) {
             cols[col].filterable = true;
+          }
+          if (maxWidthCols[col]) {
+            cols[col].maxWidth = maxWidthCols[col];
           }
         }
       }
