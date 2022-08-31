@@ -43,12 +43,18 @@ function Main(props) {
       refresh = _useState6[0],
       setRefresh = _useState6[1];
 
+  var _useState7 = useState(true),
+      _useState8 = _slicedToArray(_useState7, 2),
+      inRefresh = _useState8[0],
+      setInRefresh = _useState8[1];
+
   // getting data
 
 
   useEffect(function () {
     axiosInstance.get('/dashboard', { params: { table: table } }).then(function (res) {
-      console.log(res.data);
+      // console.log(res.data);
+      setInRefresh(false);
       setRows(res.data);
     });
   }, [table, refresh]);
@@ -99,9 +105,11 @@ function Main(props) {
       selected: table,
       onChange: setTable
     }),
+    ' ',
     React.createElement(Button, {
-      label: 'Refresh',
+      label: inRefresh ? "Loading" : "Refresh",
       onClick: function onClick() {
+        setInRefresh(true);
         setRefresh((refresh + 1) % 2);
       }
     }),

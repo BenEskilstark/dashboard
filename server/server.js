@@ -9,11 +9,16 @@ const {
 const port = process.env.PORT || 8000;
 
 const app = express();
-app.use(cors())
 app.use(express.json());
 app.use(express.static('./'));
 
-app.get('/dashboard', [
+
+// const corsOptions = {
+//   origin: 'http://example.com',
+//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// }
+// app.use(cors(corsOptions))
+app.get('/dashboard', cors(), [
   getDashboardData,
 ]);
 

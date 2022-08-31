@@ -26,6 +26,7 @@ function Main(props) {
   const [table, setTable] = useState('site_visits');
   const [rows, setRows] = useState([]);
   const [refresh, setRefresh] = useState(0);
+  const [inRefresh, setInRefresh] = useState(true);
 
   // getting data
   useEffect(() => {
@@ -33,6 +34,7 @@ function Main(props) {
       .get('/dashboard', {params: {table}})
       .then(res => {
         // console.log(res.data);
+        setInRefresh(false);
         setRows(res.data);
       });
   }, [table, refresh]);
@@ -58,10 +60,11 @@ function Main(props) {
         options={tableNames}
         selected={table}
         onChange={setTable}
-      />
+      />{' '}
       <Button
-        label="Refresh"
+        label={inRefresh ? "Loading" : "Refresh"}
         onClick={() => {
+          setInRefresh(true);
           setRefresh((refresh + 1) % 2);
         }}
       />
