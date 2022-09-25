@@ -4,6 +4,8 @@ const urlParser = require('url');
 const cors = require('cors');
 const {
   getDashboardData,
+  recordVisit,
+  recordSession,
 } = require('./middleware');
 
 const port = process.env.PORT || 8000;
@@ -20,6 +22,12 @@ app.use(express.static('./'));
 // app.use(cors(corsOptions))
 app.get('/dashboard', cors(), [
   getDashboardData,
+]);
+app.post('/visit', cors(), [
+  recordVisit,
+]);
+app.post('/session', cors(), [
+  recordSession,
 ]);
 
 console.log("server listening on port", port);

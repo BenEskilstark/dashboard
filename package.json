@@ -23,7 +23,7 @@
     "axios": "^0.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-flow": "^6.23.0",
-    "bens_ui_components": "^1.4.50",
+    "bens_ui_components": "^1.4.51",
     "bens_utils": "^1.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.3",

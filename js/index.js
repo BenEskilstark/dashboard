@@ -62,7 +62,7 @@ function Main(props) {
       }
     }
     return cols;
-  }, [rows]);
+  }, [rows, refresh]);
 
   return (
     <div>
@@ -75,6 +75,7 @@ function Main(props) {
         label={inRefresh ? "Loading" : "Refresh"}
         onClick={() => {
           setInRefresh(true);
+          setRows([]);
           setRefresh((refresh + 1) % 2);
         }}
       />

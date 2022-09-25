@@ -104,7 +104,7 @@ function Main(props) {
     }
 
     return cols;
-  }, [rows]);
+  }, [rows, refresh]);
 
   return React.createElement(
     'div',
@@ -120,6 +120,7 @@ function Main(props) {
       label: inRefresh ? "Loading" : "Refresh",
       onClick: function onClick() {
         setInRefresh(true);
+        setRows([]);
         setRefresh((refresh + 1) % 2);
       }
     }),
@@ -3495,7 +3496,8 @@ function Table(props) {
     }
 
     return filtered;
-  }, [rows, selectedByColumn, columnOptions]);
+  });
+  // }, [rows, selectedByColumn, columnOptions]);
 
   var sortedRows = useMemo(function () {
     if (sortByColumn.name == null) return filteredRows;
@@ -3515,7 +3517,8 @@ function Table(props) {
       return sorted.reverse();
     }
     return sorted;
-  }, [sortByColumn, filteredRows]);
+  });
+  // }, [sortByColumn, filteredRows]);
 
   var rowHTML = sortedRows.map(function (row, i) {
     var rowData = colNames.map(function (col) {

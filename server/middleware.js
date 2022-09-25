@@ -39,6 +39,72 @@ const getDashboardData = (req, res, next) => {
   });
 };
 
+// ------------------------------------------------------------------------
+// Record visits and sessions
+// ------------------------------------------------------------------------
+
+const recordVisit = (req, res, next) => {
+  const {hostname, path, map, isUnique} = req.body;
+  const table = 'site_visits';
+  if (!isUnique) {
+    upsertQuery(
+      table,
+      {
+        hostname, path, map,
+        num_visits: 1,
+        last_visited: new Date(),
+      },
+      {
+        num_visits: table + '.num_visits + 1',
+        last_visited: 'current_timestamp',
+      },
+      {hostname, path, map},
+    ).then(() => {
+      res.status(201).send({success: true});
+    });
+  } else {
+    upsertQuery(
+      table,
+      {
+        hostname, path, map,
+        num_visits: 1,
+        num_unique_visits: 1,
+        last_visited: new Date(),
+      },
+      {
+        num_visits: table + '.num_visits + 1',
+        num_unique_visits: table + '.num_unique_visits + 1',
+        last_visited: 'current_timestamp',
+      },
+      {hostname, path, map},
+    ).then(() => {
+      res.status(201).send({success: true});
+    });
+  }
+};
+
+const recordSession = (req, res, next) => {
+  const {
+    hostname, ending, map, is_unique,
+    ants, queens, play_minutes, username,
+    device, species,
+  } = req.body;
+  writeQuery(
+    'ant_sessions',
+    {
+      hostname, ending, map, is_unique,
+      ants, queens, play_minutes, username,
+      device, species,
+    },
+  ).then(() => {
+    res.status(201).send({success: true});
+  }).catch((err) => {
+    console.log('failed to write session');
+    console.log(err);
+    res.status(500).send({error: err});
+  });
+};
+
 
 // ------------------------------------------------------------------------
 // Helpers
@@ -57,5 +123,7 @@ const getDisplayTime = (millis) => {
 }
 
 module.exports = {
+  recordVisit,
+  recordSession,
   getDashboardData,
 };
