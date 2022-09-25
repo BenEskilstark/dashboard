@@ -13,6 +13,7 @@ const port = process.env.PORT || 8000;
 const app = express();
 app.use(express.json());
 app.use(express.static('./'));
+app.use(cors());
 
 
 // const corsOptions = {
@@ -23,11 +24,19 @@ app.use(express.static('./'));
 app.get('/dashboard', cors(), [
   getDashboardData,
 ]);
+
+// record visits
 app.post('/visit', cors(), [
   recordVisit,
 ]);
+
+// antocracy-specific
 app.post('/session', cors(), [
   recordSession,
+]);
+app.post('/score', [
+  checkUsername,
+  writeScore,
 ]);
 
 console.log("server listening on port", port);

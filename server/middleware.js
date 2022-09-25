@@ -105,6 +105,43 @@ const recordSession = (req, res, next) => {
   });
 };
 
+// ------------------------------------------------------------------------
+// Record scores
+// ------------------------------------------------------------------------
+
+// make sure the given username is free
+const checkUsername = (req, res, next) => {
+  const {username, localUser} = req.body;
+  // if the username is stored on the user's machine, then we know this is
+  // their username and don't need to check
+  if (localUser) {
+    next();
+  } else {
+    // else see if any rows match this username
+    selectQuery('ant_scores', ['username'], {username})
+      .then(result => {
+        if (result.rows.length == 0) {
+          next();
+        } else {
+          res.status(400).send({error: 'There is already a user with this name'});
+        }
+      });
+  }
+};
+
+const writeScore = (req, res, next) => {
+  const {username, map, game_time, queens, ants, species} = req.body;
+  writeQuery(
+    'ant_scores',
+    {username, map, game_time, queens, ants, species},
+  ).then(() => {
+    res.status(201).send({success: true});
+  }).catch((err) => {
+    console.log('failed to write score');
+    console.log(err);
+    res.status(500).send({error: err});
+  });
+};
 
 // ------------------------------------------------------------------------
 // Helpers
