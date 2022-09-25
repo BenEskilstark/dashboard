@@ -3,6 +3,8 @@ const express = require('express');
 const urlParser = require('url');
 const cors = require('cors');
 const {
+  checkUsername,
+  writeScore,
   getDashboardData,
   recordVisit,
   recordSession,

@@ -162,5 +162,7 @@ const getDisplayTime = (millis) => {
 module.exports = {
   recordVisit,
   recordSession,
+  checkUsername,
+  writeScore,
   getDashboardData,
 };
