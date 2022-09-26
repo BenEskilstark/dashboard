@@ -16,11 +16,17 @@ var useState = React.useState,
     useEffect = React.useEffect,
     useMemo = React.useMemo;
 
-// get axiosInstance for URL:
+// get axiosInstance for URL
+// for droplet
 
 var axiosInstance = axios.create({
   baseURL: 'http://161.35.14.17'
 });
+// for heroku:
+//
+// const axiosInstance = axios.create({
+//   baseURL: 'https://ant-analytics.herokuapp.com',
+// });
 // for localhost:
 // const axiosInstance = axios;
 

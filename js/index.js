@@ -8,10 +8,16 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const {useState, useEffect, useMemo} = React;
 
-// get axiosInstance for URL:
+// get axiosInstance for URL
+// for droplet
 const axiosInstance = axios.create({
   baseURL: 'http://161.35.14.17',
 });
+// for heroku:
+//
+// const axiosInstance = axios.create({
+//   baseURL: 'https://ant-analytics.herokuapp.com',
+// });
 // for localhost:
 // const axiosInstance = axios;
 
