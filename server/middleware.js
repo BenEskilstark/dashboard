@@ -5,8 +5,6 @@ const TABLE_TO_COLS = {
     ['hostname', 'path', 'map', 'num_visits', 'num_unique_visits', 'last_visited'],
   'ant_scores':
     ['id', 'username', 'map', 'game_time', 'queens', 'ants', 'species'],
-  'visits':
-    ['site', 'num_visits', 'last_visited'],
   'ant_sessions':
     [
       'hostname', 'username', 'map', 'is_unique', 'ending', 'ants',
@@ -40,7 +38,7 @@ const getDashboardData = (req, res, next) => {
 };
 
 // ------------------------------------------------------------------------
-// Record visits and sessions
+// Record site visits
 // ------------------------------------------------------------------------
 
 const recordVisit = (req, res, next) => {
@@ -83,30 +81,9 @@ const recordVisit = (req, res, next) => {
   }
 };
 
-const recordSession = (req, res, next) => {
-  const {
-    hostname, ending, map, is_unique,
-    ants, queens, play_minutes, username,
-    device, species,
-  } = req.body;
-  writeQuery(
-    'ant_sessions',
-    {
-      hostname, ending, map, is_unique,
-      ants, queens, play_minutes, username,
-      device, species,
-    },
-  ).then(() => {
-    res.status(201).send({success: true});
-  }).catch((err) => {
-    console.log('failed to write session');
-    console.log(err);
-    res.status(500).send({error: err});
-  });
-};
 
 // ------------------------------------------------------------------------
-// Record scores
+// ANTOCRACY -- Record scores and sessions
 // ------------------------------------------------------------------------
 
 // make sure the given username is free
@@ -142,6 +119,29 @@ const writeScore = (req, res, next) => {
     res.status(500).send({error: err});
   });
 };
+
+const recordSession = (req, res, next) => {
+  const {
+    hostname, ending, map, is_unique,
+    ants, queens, play_minutes, username,
+    device, species,
+  } = req.body;
+  writeQuery(
+    'ant_sessions',
+    {
+      hostname, ending, map, is_unique,
+      ants, queens, play_minutes, username,
+      device, species,
+    },
+  ).then(() => {
+    res.status(201).send({success: true});
+  }).catch((err) => {
+    console.log('failed to write session');
+    console.log(err);
+    res.status(500).send({error: err});
+  });
+};
+
 
 // ------------------------------------------------------------------------
 // Helpers

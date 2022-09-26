@@ -10,7 +10,7 @@ const {
   recordSession,
 } = require('./middleware');
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 80;
 
 const app = express();
 app.use(express.json());
