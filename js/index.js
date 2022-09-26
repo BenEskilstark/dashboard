@@ -10,7 +10,7 @@ const {useState, useEffect, useMemo} = React;
 
 // get axiosInstance for URL:
 const axiosInstance = axios.create({
-  baseURL: 'https://ant-analytics.herokuapp.com',
+  baseURL: 'http://161.35.14.17',
 });
 // for localhost:
 // const axiosInstance = axios;

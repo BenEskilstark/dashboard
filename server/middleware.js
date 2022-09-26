@@ -46,7 +46,7 @@ const getDashboardData = (req, res, next) => {
 };
 
 // ------------------------------------------------------------------------
-// Record visits and sessions
+// Record site visits
 // ------------------------------------------------------------------------
 
 const recordVisit = (req, res, next) => {
@@ -89,30 +89,9 @@ const recordVisit = (req, res, next) => {
   }
 };
 
-const recordSession = (req, res, next) => {
-  const {
-    hostname, ending, map, is_unique,
-    ants, queens, play_minutes, username,
-    device, species,
-  } = req.body;
-  writeQuery(
-    'ant_sessions',
-    {
-      hostname, ending, map, is_unique,
-      ants, queens, play_minutes, username,
-      device, species,
-    },
-  ).then(() => {
-    res.status(201).send({success: true});
-  }).catch((err) => {
-    console.log('failed to write session');
-    console.log(err);
-    res.status(500).send({error: err});
-  });
-};
 
 // ------------------------------------------------------------------------
-// Record scores
+// ANTOCRACY -- Record scores and sessions
 // ------------------------------------------------------------------------
 
 // make sure the given username is free
@@ -148,6 +127,29 @@ const writeScore = (req, res, next) => {
     res.status(500).send({error: err});
   });
 };
+
+const recordSession = (req, res, next) => {
+  const {
+    hostname, ending, map, is_unique,
+    ants, queens, play_minutes, username,
+    device, species,
+  } = req.body;
+  writeQuery(
+    'ant_sessions',
+    {
+      hostname, ending, map, is_unique,
+      ants, queens, play_minutes, username,
+      device, species,
+    },
+  ).then(() => {
+    res.status(201).send({success: true});
+  }).catch((err) => {
+    console.log('failed to write session');
+    console.log(err);
+    res.status(500).send({error: err});
+  });
+};
+
 
 // ------------------------------------------------------------------------
 // Helpers

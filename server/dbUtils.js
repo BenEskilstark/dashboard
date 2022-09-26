@@ -53,12 +53,12 @@ const updateQuery = (table, row, filters, pgClient) => {
 // -------------------------------------------------------------------------
 
 const getPostgresClient = () => {
-  const port = process.env.PORT || 8000;
-  const settings = port == 8000
-    ? {database: 'postgres'}
-    : {
-        connectionString: process.env.DATABASE_URL,
-        ssl: {rejectUnauthorized: false},
+  const settings = {
+    port: 5432,
+    user: 'postgres',
+    password: '100bones',
+    database: 'postgres',
+    ssl: {rejectUnauthorized: false},
     };
   const client = new Client(settings);
   // TODO: can you connect/end the same client multiple times?

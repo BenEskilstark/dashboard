@@ -19,7 +19,7 @@ var useState = React.useState,
 // get axiosInstance for URL:
 
 var axiosInstance = axios.create({
-  baseURL: 'https://ant-analytics.herokuapp.com'
+  baseURL: 'http://161.35.14.17'
 });
 // for localhost:
 // const axiosInstance = axios;
