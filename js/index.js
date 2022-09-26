@@ -15,7 +15,11 @@ const axiosInstance = axios.create({
 // for localhost:
 // const axiosInstance = axios;
 
-const tableNames = ['site_visits', 'ant_scores', 'visits', 'ant_sessions'];
+const tableNames = [
+  'site_visits',
+  'ant_scores', 'ant_sessions',
+  'blog_users', 'blog_comments',
+];
 const filterableCols = [
   'hostname', 'path', 'map',
   'username', 'species',

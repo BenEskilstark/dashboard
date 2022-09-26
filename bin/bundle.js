@@ -24,7 +24,7 @@ var axiosInstance = axios.create({
 // for localhost:
 // const axiosInstance = axios;
 
-var tableNames = ['site_visits', 'ant_scores', 'visits', 'ant_sessions'];
+var tableNames = ['site_visits', 'ant_scores', 'ant_sessions', 'blog_users', 'blog_comments'];
 var filterableCols = ['hostname', 'path', 'map', 'username', 'species', 'ending', 'is_unique', 'device'];
 
 var maxWidthCols = {
