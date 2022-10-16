@@ -3,12 +3,15 @@ const express = require('express');
 const urlParser = require('url');
 const cors = require('cors');
 const {
-  checkUsername,
-  writeScore,
   getDashboardData,
   recordVisit,
-  recordSession,
 } = require('./middleware');
+const {
+  checkUsername,
+  writeScore,
+  recordSession,
+  getHighScores,
+} = require('./antocracy_middleware');
 const path = require('path');
 
 const port = process.env.PORT || 8000;
@@ -34,6 +37,9 @@ app.post('/visit', cors(), [
 ]);
 
 // antocracy-specific
+app.get('/highscores', [
+  getHighScores,
+]);
 app.post('/session', cors(), [
   recordSession,
 ]);

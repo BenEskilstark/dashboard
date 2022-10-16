@@ -18,18 +18,15 @@ var useState = React.useState,
 
 // get axiosInstance for URL
 // for droplet
-// const axiosInstance = axios.create({
-//   baseURL: 'https://benhub.io/analytics',
-// });
+
+var axiosInstance = axios.create({
+  baseURL: 'https://benhub.io/analytics'
+});
 // for heroku:
 //
 // const axiosInstance = axios.create({
-//   baseURL: 'https://ant-analytics.herokuapp.com',
+//   baseURL: 'https://sidewalk-empire.herokuapp.com',
 // });
-
-var axiosInstance = axios.create({
-  baseURL: 'https://sidewalk-empire.herokuapp.com'
-});
 // for localhost:
 // const axiosInstance = axios;
 

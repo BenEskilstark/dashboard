@@ -10,17 +10,14 @@ const {useState, useEffect, useMemo} = React;
 
 // get axiosInstance for URL
 // for droplet
-// const axiosInstance = axios.create({
-//   baseURL: 'https://benhub.io/analytics',
-// });
+const axiosInstance = axios.create({
+  baseURL: 'https://benhub.io/analytics',
+});
 // for heroku:
 //
 // const axiosInstance = axios.create({
-//   baseURL: 'https://ant-analytics.herokuapp.com',
+//   baseURL: 'https://sidewalk-empire.herokuapp.com',
 // });
-const axiosInstance = axios.create({
-  baseURL: 'https://sidewalk-empire.herokuapp.com',
-});
 // for localhost:
 // const axiosInstance = axios;
 
