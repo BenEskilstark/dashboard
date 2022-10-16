@@ -3,18 +3,22 @@ const express = require('express');
 const urlParser = require('url');
 const cors = require('cors');
 const {
-  checkUsername,
-  writeScore,
   getDashboardData,
   recordVisit,
+} = require('./middleware');
+const {
+  checkUsername,
+  writeScore,
   recordSession,
-} = require('./server/middleware');
+  getHighScores,
+} = require('./antocracy_middleware');
+const path = require('path');
 
 const port = process.env.PORT || 8000;
 
 const app = express();
 app.use(express.json());
-app.use(express.static('./'));
+app.use(express.static(path.join(__dirname, '../')));
 app.use(cors());
 
 
@@ -33,6 +37,9 @@ app.post('/visit', cors(), [
 ]);
 
 // antocracy-specific
+app.get('/highscores', [
+  getHighScores,
+]);
 app.post('/session', cors(), [
   recordSession,
 ]);

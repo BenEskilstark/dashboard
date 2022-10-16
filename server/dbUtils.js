@@ -1,5 +1,6 @@
 
 const {Client} = require('pg');
+const {dbURL} = require('../.secrets');
 
 
 // -------------------------------------------------------------------------
@@ -10,6 +11,13 @@ const writeQuery = (table, row, pgClient) => {
   const {valuesStr, queryPayload} = toValuesStr(row);
   const queryStr = `INSERT INTO ${table} ${valuesStr}`;
   return queryPostgres(queryStr, queryPayload, 'write', pgClient);
+};
+
+
+const insertManyQuery = (table, rows) => {
+  for (const row of rows) {
+    writeQuery(table, row);
+  }
 };
 
 
@@ -26,7 +34,6 @@ const selectQuery = (table, columns, filters, orderBy, limit, pgClient) => {
   const queryStr = `${selectStr} ${filterStr}`;
   return queryPostgres(queryStr, queryPayload, 'readOnly', pgClient);
 };
-
 
 const upsertQuery = (table, row, updateRow, filters, pgClient) => {
   const setStr = toUpdateStr(updateRow);
@@ -54,7 +61,7 @@ const updateQuery = (table, row, filters, pgClient) => {
 
 const getPostgresClient = () => {
   const settings = {
-    connectionString: 'postgres://postgres:100bones@161.35.14.17:5432/postgres',
+    connectionString: dbURL,
     ssl: {rejectUnauthorized: false},
   };
   const client = new Client(settings);
@@ -163,6 +170,7 @@ const toUpdateStr = (row) => {
 module.exports = {
   getPostgresClient,
   writeQuery,
+  insertManyQuery,
   selectQuery,
   updateQuery,
   deleteQuery,
