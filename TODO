@@ -1,4 +1,3 @@
 
   - add data to db
-  - get https for the dashboard server
-  - get a domain for the dashboard server
+    - add game_time col to ant_scores table

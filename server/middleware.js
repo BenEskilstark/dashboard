@@ -41,7 +41,7 @@ const getDashboardData = (req, res, next) => {
   }).catch((err) => {
     console.log('failed to read score');
     console.log(err);
-    res.status(500).send({error: err});
+    res.status(500).send({error: err, foo: 'bar'});
   });
 };
 

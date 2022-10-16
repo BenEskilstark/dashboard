@@ -8,7 +8,7 @@
     "babel": "babel",
     "flow": "flow",
     "browserify": "browserify",
-    "start": "node server/server.js"
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",

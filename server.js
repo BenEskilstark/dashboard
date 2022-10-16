@@ -8,9 +8,9 @@ const {
   getDashboardData,
   recordVisit,
   recordSession,
-} = require('./middleware');
+} = require('./server/middleware');
 
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 8000;
 
 const app = express();
 app.use(express.json());
@@ -40,6 +40,7 @@ app.post('/score', [
   checkUsername,
   writeScore,
 ]);
+
 
 console.log("server listening on port", port);
 
