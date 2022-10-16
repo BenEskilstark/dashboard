@@ -8,13 +8,14 @@ const {
   getDashboardData,
   recordVisit,
   recordSession,
-} = require('./server/middleware');
+} = require('./middleware');
+const path = require('path');
 
 const port = process.env.PORT || 8000;
 
 const app = express();
 app.use(express.json());
-app.use(express.static('./'));
+app.use(express.static(path.join(__dirname, '../')));
 app.use(cors());
 
 

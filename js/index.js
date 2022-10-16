@@ -15,8 +15,11 @@ const {useState, useEffect, useMemo} = React;
 // });
 // for heroku:
 //
+// const axiosInstance = axios.create({
+//   baseURL: 'https://ant-analytics.herokuapp.com',
+// });
 const axiosInstance = axios.create({
-  baseURL: 'https://ant-analytics.herokuapp.com',
+  baseURL: 'https://sidewalk-empire.herokuapp.com',
 });
 // for localhost:
 // const axiosInstance = axios;
@@ -50,7 +53,7 @@ function Main(props) {
     axiosInstance
       .get('/dashboard', {params: {table}})
       .then(res => {
-        console.log(res.data);
+        console.log(JSON.stringify(res.data));
         setInRefresh(false);
         setRows(res.data);
       });

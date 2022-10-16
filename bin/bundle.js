@@ -23,9 +23,12 @@ var useState = React.useState,
 // });
 // for heroku:
 //
+// const axiosInstance = axios.create({
+//   baseURL: 'https://ant-analytics.herokuapp.com',
+// });
 
 var axiosInstance = axios.create({
-  baseURL: 'https://ant-analytics.herokuapp.com'
+  baseURL: 'https://sidewalk-empire.herokuapp.com'
 });
 // for localhost:
 // const axiosInstance = axios;
@@ -66,7 +69,7 @@ function Main(props) {
 
   useEffect(function () {
     axiosInstance.get('/dashboard', { params: { table: table } }).then(function (res) {
-      console.log(res.data);
+      console.log(JSON.stringify(res.data));
       setInRefresh(false);
       setRows(res.data);
     });
