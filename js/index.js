@@ -52,7 +52,14 @@ function Main(props) {
       .then(res => {
         console.log(JSON.stringify(res.data));
         setInRefresh(false);
-        setRows(res.data);
+        let rows = [];
+        for (const row of res.data) {
+          if (row.game_time) {
+            row.game_time = getDisplayTime(row.game_time);
+          }
+          rows.push(row);
+        }
+        setRows(rows)
       });
   }, [table, refresh]);
 
@@ -95,6 +102,32 @@ function Main(props) {
       />
     </div>
   );
+}
+
+
+const getDisplayTime = (millis) => {
+  const seconds = Math.floor(millis / 1000);
+  let minutes = Math.floor(seconds / 60);
+  const leftOverSeconds = seconds - (minutes * 60);
+  let leftOverSecondsStr = leftOverSeconds == 0 ? '00' : '' + leftOverSeconds;
+  if (leftOverSeconds < 10 && leftOverSeconds != 0 ) {
+    leftOverSecondsStr = '0' + leftOverSecondsStr;
+  }
+  let hours = 0;
+  let minuteStr = '' + minutes;
+  let hourStr = '';
+  if (minutes > 60) {
+    hours = Math.floor(minutes / 60);
+    minutes = minutes - (hours * 60);
+
+    hourStr = hours + ':';
+    minuteStr = minutes < 10 && minutes != 0
+      ? '0' + minutes
+      : minutes;
+  }
+
+
+  return `${hourStr}${minuteStr}:${leftOverSecondsStr}`;
 }
 
 
