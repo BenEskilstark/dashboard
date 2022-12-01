@@ -13,11 +13,6 @@ const {useState, useEffect, useMemo} = React;
 const axiosInstance = axios.create({
   baseURL: 'https://benhub.io/analytics',
 });
-// for heroku:
-//
-// const axiosInstance = axios.create({
-//   baseURL: 'https://sidewalk-empire.herokuapp.com',
-// });
 // for localhost:
 // const axiosInstance = axios;
 
@@ -92,7 +87,6 @@ function Main(props) {
         label={inRefresh ? "Loading" : "Refresh"}
         onClick={() => {
           setInRefresh(true);
-          setRows([]);
           setRefresh((refresh + 1) % 2);
         }}
       />
