@@ -58,6 +58,7 @@ const recordVisit = (req, res, next) => {
       {
         hostname, path, map,
         num_visits: 1,
+        num_unique_visits: 0,
         last_visited: new Date(),
       },
       {
