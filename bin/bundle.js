@@ -35,6 +35,11 @@ var maxWidthCols = {
   hostname: 25
 };
 
+var rowToKey = function rowToKey(row) {
+  if (!row.hostname || !row.path) return false;
+  return row.hostname + '_' + row.path + '_' + row.map;
+};
+
 function Main(props) {
   var _useState = useState('site_visits'),
       _useState2 = _slicedToArray(_useState, 2),
@@ -75,6 +80,29 @@ function Main(props) {
           if (row.game_time) {
             row.game_time = getDisplayTime(row.game_time);
           }
+
+          // display difference since last visit
+          var primaryKey = rowToKey(row);
+          if (primaryKey) {
+            var prevVal = localStorage.getItem(primaryKey);
+            if (prevVal) {
+              var _JSON$parse = JSON.parse(prevVal),
+                  num_visits = _JSON$parse.num_visits,
+                  num_unique_visits = _JSON$parse.num_unique_visits;
+
+              localStorage.setItem(primaryKey, JSON.stringify({
+                num_visits: row.num_visits,
+                num_unique_visits: row.num_unique_visits
+              }));
+              row.num_visits = row.num_visits + " (+ " + (row.num_visits - num_visits) + ")";
+              row.num_unique_visits = row.num_unique_visits + " (+ " + (row.num_unique_visits - num_unique_visits) + ")";
+            } else {
+              localStorage.setItem(primaryKey, JSON.stringify({
+                num_visits: row.num_visits,
+                num_unique_visits: row.num_unique_visits
+              }));
+            }
+          }
           rows.push(row);
         }
       } catch (err) {
@@ -106,7 +134,7 @@ function Main(props) {
       for (var _iterator2 = rows[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
         var row = _step2.value;
 
-        for (var col in row) {
+        var _loop = function _loop(col) {
           if (!cols[col]) {
             cols[col] = {};
             if (filterableCols.includes(col)) {
@@ -115,7 +143,18 @@ function Main(props) {
             if (maxWidthCols[col]) {
               cols[col].maxWidth = maxWidthCols[col];
             }
+            if (col == 'num_visits' || col == 'num_unique_visits') {
+              cols[col].sortFn = function (a, b) {
+                var numA = parseInt(a[col].split(' ')[0]) || 0;
+                var numB = parseInt(b[col].split(' ')[0]) || 0;
+                return numA - numB;
+              };
+            }
           }
+        };
+
+        for (var col in row) {
+          _loop(col);
         }
       }
     } catch (err) {
@@ -154,6 +193,7 @@ function Main(props) {
       }
     }),
     React.createElement(Table, {
+
       columns: columns,
       rows: rows
     })

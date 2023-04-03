@@ -34,6 +34,11 @@ const maxWidthCols = {
   hostname: 25,
 };
 
+const rowToKey = (row) => {
+  if (!row.hostname || !row.path) return false;
+  return row.hostname + '_' + row.path + '_' + row.map;
+}
+
 function Main(props) {
   const [table, setTable] = useState('site_visits');
   const [rows, setRows] = useState([]);
@@ -52,6 +57,28 @@ function Main(props) {
           if (row.game_time) {
             row.game_time = getDisplayTime(row.game_time);
           }
+
+          // display difference since last visit
+          const primaryKey = rowToKey(row);
+          if (primaryKey) {
+            const prevVal = localStorage.getItem(primaryKey);
+            if (prevVal) {
+              const {num_visits, num_unique_visits} = JSON.parse(prevVal);
+              localStorage.setItem(primaryKey, JSON.stringify({
+                num_visits: row.num_visits,
+                num_unique_visits: row.num_unique_visits,
+              }));
+              row.num_visits = row.num_visits + " (+ " + (row.num_visits - num_visits) + ")";
+              row.num_unique_visits =
+                row.num_unique_visits + " (+ " + (row.num_unique_visits - num_unique_visits) + ")";
+            } else {
+              localStorage.setItem(primaryKey, JSON.stringify({
+                num_visits: row.num_visits,
+                num_unique_visits: row.num_unique_visits,
+              }));
+            }
+
+          }
           rows.push(row);
         }
         setRows(rows)
@@ -69,6 +96,13 @@ function Main(props) {
           }
           if (maxWidthCols[col]) {
             cols[col].maxWidth = maxWidthCols[col];
+          }
+          if (col == 'num_visits' || col == 'num_unique_visits') {
+            cols[col].sortFn = (a, b) => {
+              let numA = parseInt(a[col].split(' ')[0]) || 0;
+              let numB = parseInt(b[col].split(' ')[0]) || 0;
+              return numA - numB;
+            }
           }
         }
       }
@@ -91,6 +125,7 @@ function Main(props) {
         }}
       />
       <Table
+
         columns={columns}
         rows={rows}
       />
